@@ -1,36 +1,30 @@
-#include <iostream>
+﻿#include <iostream>
 #include <ctime>
 
 using namespace std;
 
-void add_col(int**& array, int row, int& col, int col_pos)
+void del_col(int**& array, int row, int& col, int col_pos)
 {
-    int* new_col = new int[row];
-    for (size_t i = 0; i < row; i++)
-    {
-        new_col[i] = 0;
-    }
     int** new_array = new int* [row];
     for (size_t i = 0; i < row; i++)
     {
-        new_array[i] = new int[col + 1];
+        new_array[i] = new int[col - 1];
     }
+
     for (size_t i = 0; i < row; i++)
     {
         for (size_t j = 0; j < col_pos - 1; j++)
         {
             new_array[i][j] = array[i][j];
         }
-        new_array[i][col_pos - 1] = new_col[i];
-        for (size_t j = col_pos; j < col + 1; j++)
+        for (size_t j = col_pos; j < col; j++)
         {
-            new_array[i][j] = array[i][j - 1];
+            new_array[i][j - 1] = array[i][j];
         }
     }
-    col++;
+    col--;
     delete[] array;
     array = new_array;
-    delete[] new_col;
 
     cout << "\n\nRemastered\n";
     for (size_t i = 0; i < row; i++)
@@ -47,10 +41,10 @@ int main()
 {
     srand(time(0));
     int row, col, col_pos;
-    cout << "row -> ";
-    cin >> row; 
-    cout << "col ->";
-    cin >> col; 
+    cout << "Enter row -> ";
+    cin >> row; //âíèç
+    cout << "Enter col ->";
+    cin >> col; //âïðàâî
 
     int** array = new int* [row];
     for (size_t i = 0; i < row; i++)
@@ -64,10 +58,10 @@ int main()
         cout << "\n\n\n";
     }
 
-    cout << "pos ->";
+    cout << "Enter pos ->";
     cin >> col_pos;
 
-    add_col(array, row, col, col_pos);
+    del_col(array, row, col, col_pos);
     for (size_t i = 0; i < row; i++)
     {
         delete[i] array;
